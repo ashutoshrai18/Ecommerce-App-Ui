@@ -1,8 +1,11 @@
 import 'dart:ui';
 
 import 'package:blurrycontainer/blurrycontainer.dart';
+import 'package:ecommerce_app_ui/utils/constants.dart';
+import 'package:ecommerce_app_ui/utils/my_bottom_nav_bar.dart';
 import 'package:ecommerce_app_ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -39,200 +42,91 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    double _sigmaX = 0.0; // from 0-10
-    double _sigmaY = 0.0; // from 0-10
-    double _opacity = 0.1;
     var height = MediaQuery.of(context).viewPadding.top;
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          margin: EdgeInsets.only(top: height),
-          color: Color(0xffF8F8F8),
-          child: Column(
-            children: [
-              SizedBox(height: 5),
-              Container(
-                  margin: EdgeInsets.symmetric(horizontal: 10),
-                  child: toolBar(context)),
-              SizedBox(height: 20),
-              Container(
-                  margin: EdgeInsets.symmetric(horizontal: 10),
-                  child: titleName(context, title: "New Arrival")),
-              SizedBox(height: 20),
-              Container(
-                height: 300,
-                child: Expanded(
+        body: SingleChildScrollView(
+          child: Container(
+            margin: EdgeInsets.only(top: height),
+            child: Column(
+              children: [
+                const SizedBox(height: 5),
+                Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 15),
+                    child: toolBar(context)),
+                const SizedBox(height: 20),
+                Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 15),
+                    child: titleName(context, title: "New Arrival")),
+                const SizedBox(height: 20),
+                const ProductCard(),
+                const SizedBox(height: 15),
+                Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 15),
+                    child: titleName(context, title: "Collection")),
+                const SizedBox(height: 20),
+                SizedBox(
+                  height: 220,
                   child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 15,
-                    itemBuilder: (BuildContext context, int index) => Container(
-                        margin: EdgeInsets.only(left: 10),
-                        decoration: BoxDecoration(
-                          color: Color(0xffffffff),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        height: 250,
-                        width: 200,
-                        child: Container(
-                          child: Column(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.all(10),
-                                height: 220,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 15,
+                      itemBuilder: (BuildContext context, int index) =>
+                          Container(
+                            margin: const EdgeInsets.only(left: 15, bottom: 10),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              // ignore: prefer_const_literals_to_create_immutables
+                              boxShadow: [
+                                const BoxShadow(
+                                  color: Color(0xffe8e8e8),
+                                  blurRadius: 5,
+                                  offset: Offset(0, 5),
+                                ),
+                              ],
+                            ),
+                            width: 140,
+                            child: Stack(children: [
+                              SizedBox(
+                                height: 200,
                                 child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderRadius: BorderRadius.circular(10),
                                   child: Image.asset(
                                     "assets/images/product_3.jpg",
                                     fit: BoxFit.cover,
                                   ),
                                 ),
                               ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    margin:
-                                        EdgeInsets.symmetric(horizontal: 10),
-                                    child: Column(
-                                      children: [
-                                        Align(
-                                            alignment: Alignment.bottomLeft,
-                                            child: Text(
-                                              "Product Name",
-                                              style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            )),
-                                        Align(
-                                          alignment: Alignment.bottomLeft,
-                                          child: Text(
-                                            "Product Name",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.grey),
-                                          ),
+                              const Align(
+                                alignment: Alignment.bottomCenter,
+                                child: BlurryContainer(
+                                    blur: 5,
+                                    width: 200,
+                                    height: 50,
+                                    elevation: 0,
+                                    color: Colors.transparent,
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(8),
+                                      bottomRight: Radius.circular(8),
+                                    ),
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        "Product Name",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14,
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    height: 40,
-                                    width: 40,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(50),
-                                      color: Color(0xffFA5D43),
-                                    ),
-                                    margin:
-                                        EdgeInsets.symmetric(horizontal: 10),
-                                    child: IconButton(
-                                      iconSize: 25,
-                                      icon: Icon(
-                                        Icons.favorite_rounded,
-                                        color: Colors.white,
                                       ),
-                                      onPressed: () {},
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        )),
-                  ),
-                ),
-              ),
-              SizedBox(height: 20),
-              Container(
-                  margin: EdgeInsets.symmetric(horizontal: 10),
-                  child: titleName(context, title: "Collection")),
-              SizedBox(height: 20),
-              Container(
-                height: 200,
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 15,
-                    itemBuilder: (BuildContext context, int index) => Container(
-                          margin: EdgeInsets.only(left: 10),
-                          decoration: BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          width: 140,
-                          child: Stack(children: [
-                            Container(
-                              height: 200,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8.0),
-                                child: Image.asset(
-                                  "assets/images/product_3.jpg",
-                                  fit: BoxFit.cover,
-                                ),
+                                    )),
                               ),
-                            ),
-                            Align(
-                              alignment: Alignment.bottomCenter,
-                              child: BlurryContainer(
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      "Product Name",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                  ),
-                                  blur: 5,
-                                  width: 200,
-                                  height: 50,
-                                  elevation: 0,
-                                  color: Colors.transparent,
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(8),
-                                    bottomRight: Radius.circular(8),
-                                  )),
-                            ),
-                          ]),
-                        )),
-              )
-            ],
+                            ]),
+                          )),
+                )
+              ],
+            ),
           ),
         ),
-      ),
-      bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (int index) {
-          setState(() {
-            currentPageIndex = index;
-          });
-        },
-        selectedIndex: currentPageIndex,
-        destinations: const <Widget>[
-          NavigationDestination(
-            selectedIcon: Icon(Icons.home_filled),
-            icon: Icon(Icons.home_outlined),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(Icons.shopping_bag),
-            icon: Icon(Icons.shopping_bag_outlined),
-            label: 'Cart',
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(Icons.favorite),
-            icon: Icon(Icons.favorite_outline_sharp),
-            label: 'Favorite',
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(Icons.person),
-            icon: Icon(Icons.person_outline_rounded),
-            label: 'Favorite',
-          ),
-        ],
-      ),
-    );
+        bottomNavigationBar: MyBottomNavBar());
   }
 }
