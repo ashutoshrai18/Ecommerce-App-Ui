@@ -2,6 +2,7 @@ import 'package:ecommerce_app_ui/pages/home_page.dart';
 import 'package:ecommerce_app_ui/pages/product_page.dart';
 import 'package:ecommerce_app_ui/pages/splash_sceen.dart';
 import 'package:ecommerce_app_ui/utils/constants.dart';
+import 'package:ecommerce_app_ui/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,16 +28,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        theme: ThemeData(
-          fontFamily: 'OpenSans',
-          primaryColor: cPrimaryColor,
-          scaffoldBackgroundColor: const Color(0xffEEEDF0),
-          useMaterial3: true,
-          splashFactory: InkRipple.splashFactory,
-          // colorSchemeSeed: Colors.blue,
-          brightness: Brightness.light,
-          appBarTheme: const AppBarTheme(elevation: 0),
-        ),
-        home: const HomePage());
+        theme: lightTheme,
+        home: const SplashPage());
   }
 }

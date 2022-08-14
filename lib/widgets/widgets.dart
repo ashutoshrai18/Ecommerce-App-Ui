@@ -4,59 +4,39 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 Widget toolBar(context) {
-  return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-    Container(
-      width: 45,
-      height: 44,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        color: Colors.white,
-        boxShadow: const [
-          BoxShadow(
-            color: Color(0xffe8e8e8),
-            blurRadius: 6,
-            offset: Offset(0, 5),
-          ),
-        ],
-      ),
-      child: IconButton(
-        color: Colors.white,
-        icon: const ImageIcon(
-          const AssetImage("assets/images/menu-bar.png"),
-          color: Colors.black,
-          size: 17,
-        ),
-        onPressed: () {
-          Scaffold.of(context).openDrawer();
-        },
-      ),
-    ),
-    Container(
-      height: 45,
-      width: 45,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        color: Colors.white,
-        boxShadow: const [
-          BoxShadow(
-            color: Color(0xffe8e8e8),
-            blurRadius: 6,
-            offset: Offset(0, 5),
-          ),
-        ],
-      ),
-      child: IconButton(
-        icon: const ImageIcon(
-          const AssetImage("assets/images/search.png"),
-          color: Colors.black,
-          size: 19,
-        ),
-        onPressed: () {
-          // do something
-        },
-      ),
-    ),
-  ]);
+  return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        {'asset': 'menu-bar.png', 'onPressed': () {}},
+        {'asset': 'search.png', 'onPressed': () {}}
+      ]
+          .map(
+            (e) => Container(
+              width: 45,
+              height: 44,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: Colors.white,
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color(0xffe8e8e8),
+                    blurRadius: 6,
+                    offset: Offset(0, 5),
+                  ),
+                ],
+              ),
+              child: IconButton(
+                color: Colors.white,
+                icon: ImageIcon(
+                  AssetImage("assets/images/${e['asset']}"),
+                  color: Colors.black,
+                  size: 17,
+                ),
+                onPressed: e['onPressed'] as Function(),
+              ),
+            ),
+          )
+          .toList());
 }
 
 Widget titleName(context, {String title = ""}) {
