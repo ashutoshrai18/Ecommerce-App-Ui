@@ -6,6 +6,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 Widget toolBar(context) {
   return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
     Container(
+      width: 45,
+      height: 44,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
         color: Colors.white,
@@ -22,6 +24,7 @@ Widget toolBar(context) {
         icon: const ImageIcon(
           const AssetImage("assets/images/menu-bar.png"),
           color: Colors.black,
+          size: 17,
         ),
         onPressed: () {
           Scaffold.of(context).openDrawer();
@@ -29,6 +32,8 @@ Widget toolBar(context) {
       ),
     ),
     Container(
+      height: 45,
+      width: 45,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
         color: Colors.white,
@@ -44,6 +49,7 @@ Widget toolBar(context) {
         icon: const ImageIcon(
           const AssetImage("assets/images/search.png"),
           color: Colors.black,
+          size: 19,
         ),
         onPressed: () {
           // do something
@@ -60,7 +66,7 @@ Widget titleName(context, {String title = ""}) {
       Text(
         title,
         style: const TextStyle(
-          fontSize: 18,
+          fontSize: 20,
           fontWeight: FontWeight.bold,
           color: Colors.black,
         ),
@@ -70,6 +76,7 @@ Widget titleName(context, {String title = ""}) {
           "See all",
           style: TextStyle(
             fontSize: 14,
+            fontWeight: FontWeight.bold,
             color: Colors.grey,
           ),
         ),
@@ -79,101 +86,103 @@ Widget titleName(context, {String title = ""}) {
 }
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key});
+  final String productName;
+  final String imageUrl;
+  const ProductCard(
+      {super.key, required this.productName, required this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 310,
-      child: Expanded(
-        child: ListView.builder(
-          shrinkWrap: true,
-          scrollDirection: Axis.horizontal,
-          itemCount: 15,
-          itemBuilder: (BuildContext context, int index) => Container(
-              margin: const EdgeInsets.only(left: 15, bottom: 15, top: 10),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: const [
-                  BoxShadow(
-                    color: Color(0xffe8e8e8),
-                    blurRadius: 6,
-                    offset: Offset(0, 5),
-                  ),
-                ],
-                borderRadius: BorderRadius.circular(10),
+        margin: const EdgeInsets.only(left: 20, bottom: 15, top: 10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: const [
+            BoxShadow(
+              color: Color(0xffe8e8e8),
+              blurRadius: 25,
+              offset: Offset(0, 5),
+            ),
+          ],
+          borderRadius: BorderRadius.circular(15),
+        ),
+        width: 230,
+        child: Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.all(8),
+              height: 230,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Image.network(
+                  imageUrl,
+                  fit: BoxFit.cover,
+                ),
               ),
-              width: 200,
-              child: Column(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.all(6),
-                    height: 220,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.asset(
-                        "assets/images/product_3.jpg",
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+            SizedBox(height: 6),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    // ignore: prefer_const_literals_to_create_immutables
                     children: [
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Column(
-                          children: const [
-                            Align(
-                                alignment: Alignment.bottomLeft,
-                                child: Text(
-                                  "Product Name",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                )),
-                            Align(
-                              alignment: Alignment.bottomLeft,
-                              child: Text(
-                                "Product Name",
-                                style:
-                                    TextStyle(fontSize: 14, color: Colors.grey),
-                              ),
-                            ),
-                          ],
+                      // ignore: prefer_const_constructors
+                      Text(
+                        productName,
+                        // ignore: prefer_const_constructors
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Container(
-                        height: 40,
-                        width: 40,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Color(0xffFA5D43),
-                              blurRadius: 4,
-                              offset: Offset(0, 3),
-                            ),
-                          ],
-                          color: const Color(0xffFA5D43),
-                        ),
-                        margin: const EdgeInsets.symmetric(horizontal: 10),
-                        child: IconButton(
-                          iconSize: 25,
-                          icon: const Icon(
-                            Icons.favorite_rounded,
-                            color: Colors.white,
-                          ),
-                          onPressed: () {},
-                        ),
+                      SizedBox(height: 6),
+                      // ignore: prefer_const_constructors
+                      Text(
+                        "\$60.66",
+                        // ignore: prefer_const_constructors
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey),
                       ),
                     ],
-                  )
-                ],
-              )),
-        ),
-      ),
-    );
+                  ),
+                ),
+                Container(
+                  height: 35,
+                  width: 35,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    boxShadow: const [
+                      BoxShadow(
+                        blurRadius: 4,
+                        color: Color(0xffFA5D43),
+                        offset: Offset(0, 3),
+                      ),
+                    ],
+                    color: const Color(0xffFA5D43),
+                  ),
+                  margin: const EdgeInsets.only(
+                    left: 10,
+                    right: 10,
+                    top: 10,
+                  ),
+                  child: IconButton(
+                    iconSize: 20,
+                    icon: const Icon(
+                      Icons.favorite_rounded,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {},
+                  ),
+                ),
+              ],
+            )
+          ],
+        ));
   }
 }

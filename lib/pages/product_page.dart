@@ -1,10 +1,11 @@
-import 'dart:ui';
-
-import 'package:blurrycontainer/blurrycontainer.dart';
+import 'package:ecommerce_app_ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class ProductPage extends StatefulWidget {
-  const ProductPage({super.key});
+  final String imageUrl;
+  final String productName;
+  const ProductPage(
+      {super.key, required this.imageUrl, required this.productName});
 
   @override
   State<ProductPage> createState() => _ProductPageState();
@@ -13,93 +14,111 @@ class ProductPage extends StatefulWidget {
 class _ProductPageState extends State<ProductPage> {
   @override
   Widget build(BuildContext context) {
-    int selectedIndex = 0;
-    List<IconData> data = [
-      Icons.home_outlined,
-      Icons.search,
-      Icons.add_box_outlined,
-      Icons.favorite_outline_sharp,
-      Icons.person_outline_sharp
-    ];
+    var height = MediaQuery.of(context).viewPadding.top;
     return Scaffold(
-      appBar: AppBar(),
       body: Container(
-        height: 200,
-        width: 200,
-        child: Stack(children: [
-          Container(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
-              child: Image.asset(
-                "assets/images/product_3.jpg",
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: BlurryContainer(
-                child: Container(),
-                blur: 5,
-                width: 200,
-                height: 50,
-                elevation: 0,
-                color: Colors.transparent,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(8),
-                  bottomRight: Radius.circular(8),
-                )),
-          ),
-        ]),
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Material(
-          elevation: 10,
-          borderRadius: BorderRadius.circular(20),
-          color: Colors.black,
-          child: Container(
-            height: 70,
-            width: double.infinity,
-            child: ListView.builder(
-              itemCount: data.length,
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              itemBuilder: (ctx, i) => Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedIndex = i;
-                    });
-                  },
-                  child: AnimatedContainer(
-                    duration: Duration(milliseconds: 250),
-                    width: 35,
-                    decoration: BoxDecoration(
-                      border: i == selectedIndex
-                          ? Border(
-                              top: BorderSide(width: 3.0, color: Colors.white))
-                          : null,
-                      gradient: i == selectedIndex
-                          ? LinearGradient(
-                              colors: [Colors.grey.shade800, Colors.black],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter)
-                          : null,
-                    ),
-                    child: Icon(
-                      data[i],
-                      size: 35,
-                      color: i == selectedIndex
-                          ? Colors.white
-                          : Colors.grey.shade800,
-                    ),
+        margin: EdgeInsets.only(top: height),
+        child: Column(
+          children: [
+            const SizedBox(height: 15),
+            Container(
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: 45,
+                        height: 44,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: Colors.white,
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Color(0xffe8e8e8),
+                              blurRadius: 6,
+                              offset: Offset(0, 5),
+                            ),
+                          ],
+                        ),
+                        child: IconButton(
+                          color: Colors.white,
+                          icon: const ImageIcon(
+                            AssetImage("assets/images/back.png"),
+                            color: Colors.black,
+                            size: 17,
+                          ),
+                          onPressed: () {
+                            Scaffold.of(context).openDrawer();
+                          },
+                        ),
+                      ),
+                      Container(
+                        height: 45,
+                        width: 45,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: Colors.white,
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Color(0xffe8e8e8),
+                              blurRadius: 6,
+                              offset: Offset(0, 5),
+                            ),
+                          ],
+                        ),
+                        child: IconButton(
+                          icon: const ImageIcon(
+                            AssetImage("assets/images/bag.png"),
+                            color: Colors.black,
+                          ),
+                          onPressed: () {
+                            // do something
+                          },
+                        ),
+                      ),
+                    ])),
+            const SizedBox(height: 20),
+
+            // this page ui start here
+            Container(
+              child: Column(
+                children: [
+                  Container(
+                    child: Text(widget.productName,
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black)),
                   ),
-                ),
+                  Row(
+                    children: [
+                      Container(
+                        width: 200,
+                        child: Image.network(widget.imageUrl),
+                      ),
+                      Container(
+                        width: 100,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: Colors.white,
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Color(0xffe8e8e8),
+                              blurRadius: 6,
+                              offset: Offset(0, 5),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          children: [],
+                        ),
+                      )
+                    ],
+                  ),
+                ],
               ),
-              scrollDirection: Axis.horizontal,
             ),
-          ),
+          ],
         ),
       ),
     );
